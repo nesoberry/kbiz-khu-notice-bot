@@ -2,8 +2,12 @@ name: Scholarship Bot Scheduler
 
 on:
   schedule:
-    - cron: '0 * * * *' # 매시간 정각마다 실행하라는 뜻이야!
-  workflow_dispatch: # 우리가 원할 때 수동으로 버튼을 누를 수 있게 해주는 기능
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+# 깃허브 내부 서버 경고창(Node.js) 안 뜨게 숨기는 마법의 주문
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   run-bot:
@@ -17,16 +21,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 필요한 파이썬 부품(라이브러리) 설치
+      - name: 필요한 파이썬 부품 설치
         run: pip install requests beautifulsoup4
 
       - name: 봇 실행하기!
         run: python bot.py
 
       - name: 봇이 확인한 새 글 번호 메모장에 저장하고 덮어쓰기
+        continue-on-error: true # ✨ 꿀팁: 덮어쓸 내용이 없어서 에러가 나더라도 무시하고 성공으로 넘어가!
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "action@github.com"
           git add last_post_id.txt
-          git commit -m "봇 기억 업데이트" || echo "새로운 글이 없어서 업데이트 안함"
+          git commit -m "봇 기억 업데이트"
           git push
