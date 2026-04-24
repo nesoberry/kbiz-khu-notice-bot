@@ -4,8 +4,8 @@ import os
 import json
 
 # 1. 내 텔레그램 마스터키와 주소 
-TOKEN = '여기에_토큰_붙여넣기'
-CHAT_ID = '여기에_채팅ID_붙여넣기'
+TOKEN = '8666105720:AAHpmLyz3PW8d9IpJSNZBpX-RpNQE6OCkNM'
+CHAT_ID = '6511348560'
 
 # 봇의 기억을 저장할 파일 이름
 FILE_PATH = 'last_post_id.txt'
