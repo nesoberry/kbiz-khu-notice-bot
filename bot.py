@@ -24,7 +24,6 @@ BOARDS = {
     "본관 장학안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200318",
     "본관 행사안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200361"
 }
-}
 
 # 3. 이전 기억(메모장) 읽어오기
 last_post_ids = {}
