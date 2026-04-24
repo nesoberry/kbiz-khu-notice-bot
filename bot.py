@@ -10,13 +10,20 @@ CHAT_ID = '6511348560'
 # 봇의 기억을 저장할 파일 이름
 FILE_PATH = 'last_post_id.txt'
 
-# 2. 감시할 게시판 이름과 주소 목록 (원하는 이름으로 마음대로 바꿔도 돼!)
+# 2. 감시할 게시판 이름과 주소 목록
 BOARDS = {
-    "경영대 장학": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500160",
+    # --- 경영대학 게시판 4개 ---
+    "경영대 장학안내": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500160",
+    "경영대 학사안내": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500161",
+    "경영대 정기현장실습": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500146",
+    "경영대 행사 및 기타": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500163",
+    
+    # --- 본관 게시판 4개 ---
     "본관 일반공지": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200316",
     "본관 학사안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200317",
     "본관 장학안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200318",
     "본관 행사안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200361"
+}
 }
 
 # 3. 이전 기억(메모장) 읽어오기
