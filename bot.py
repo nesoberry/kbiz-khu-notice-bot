@@ -8,9 +8,16 @@ TOKEN = '8666105720:AAHpmLyz3PW8d9IpJSNZBpX-RpNQE6OCkNM'
 CHAT_ID = '6511348560'
 FILE_PATH = 'last_post_id.txt'
 
-# 2. 감시할 게시판 이름과 주소 목록
+# 2. 감시할 게시판 이름과 주소 목록 (총 9개 게시판)
 BOARDS = {
-    "경영대 장학": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500160",
+    # --- 경영대학 게시판 5개 ---
+    "경영대 장학안내": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500160",
+    "경영대 학사안내": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500161",
+    "경영대 취창업": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500147",
+    "경영대 정기현장실습": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500146",
+    "경영대 행사 및 기타": "https://kbiz.khu.ac.kr/biz_kor/user/bbs/BMSR00040/list.do?menuNo=14500163",
+    
+    # --- 본관 게시판 4개 ---
     "본관 일반공지": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200316",
     "본관 학사안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200317",
     "본관 장학안내": "https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200318",
@@ -31,7 +38,7 @@ if os.path.exists(FILE_PATH):
 headers = {'User-Agent': 'Mozilla/5.0'}
 updated = False # 메모장을 덮어쓸지 말지 결정하는 스위치
 
-# 4. 각 게시판 순회하며 여러 개의 새 글 찾기 (버전 3.0 핵심 로직!)
+# 4. 각 게시판 순회하며 여러 개의 새 글 찾기
 for board_name, url in BOARDS.items():
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
