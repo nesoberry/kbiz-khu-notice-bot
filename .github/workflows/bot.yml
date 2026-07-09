@@ -12,6 +12,7 @@ env:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: 내 코드 가져오기
         uses: actions/checkout@v4
