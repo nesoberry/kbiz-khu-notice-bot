@@ -40,7 +40,15 @@ updated = False # 메모장을 덮어쓸지 말지 결정하는 스위치
 
 # 4. 각 게시판 순회하며 여러 개의 새 글 찾기
 for board_name, url in BOARDS.items():
-    response = requests.get(url, headers=headers)
+    # ✨ timeout=10: 학교 서버가 10초 안에 응답 안 하면 포기하고 다음 게시판으로!
+    # (이게 없으면 서버가 먹통일 때 봇이 무한정 기다리다가 강제 종료됨)
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()  # 404, 500 같은 에러 응답도 실패로 처리
+    except requests.RequestException as e:
+        print(f"⚠️ [{board_name}] 접속 실패, 이번엔 건너뜀: {e}")
+        continue
+
     soup = BeautifulSoup(response.text, 'html.parser')
     
     # 해당 게시판의 글 목록 쫙 다 가져오기
@@ -88,11 +96,19 @@ for board_name, url in BOARDS.items():
         
         # 텔레그램으로 쏘기
         tg_url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
-        requests.post(tg_url, data={'chat_id': CHAT_ID, 'text': message})
-        
-        # 메모장에 가장 최신 번호(제일 큰 번호)로 업데이트
-        last_post_ids[board_name] = str(max_id_this_time)
-        updated = True
+        try:
+            tg_response = requests.post(tg_url, data={'chat_id': CHAT_ID, 'text': message}, timeout=10)
+        except requests.RequestException as e:
+            # ✨ 전송 자체가 실패하면 기억을 갱신하지 않음 → 다음 실행 때 같은 글을 다시 발견해서 재시도!
+            print(f"⚠️ [{board_name}] 텔레그램 전송 실패, 기억 갱신 안 함 (다음 실행 때 재시도): {e}")
+            continue
+
+        if tg_response.ok:
+            # ✨ 전송이 성공했을 때만 메모장에 가장 최신 번호(제일 큰 번호)로 업데이트
+            last_post_ids[board_name] = str(max_id_this_time)
+            updated = True
+        else:
+            print(f"⚠️ [{board_name}] 텔레그램 응답 에러({tg_response.status_code}), 기억 갱신 안 함: {tg_response.text}")
     else:
         print(f"💤 [{board_name}] 새로운 공지사항 없음.")
 
