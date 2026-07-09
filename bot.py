@@ -3,9 +3,11 @@ from bs4 import BeautifulSoup
 import os
 import json
 
-# 1. 내 텔레그램 마스터키와 주소 (여기에 본인 정보 입력!)
-TOKEN = '8666105720:AAHpmLyz3PW8d9IpJSNZBpX-RpNQE6OCkNM'
-CHAT_ID = '6511348560'
+# 1. 내 텔레그램 마스터키와 주소
+# ✨ 이제 코드에 직접 적지 않고, GitHub Secrets 금고에서 꺼내 씀!
+# (bot.yml의 env 설정을 통해 실행 순간에만 전달됨)
+TOKEN = os.environ['TELEGRAM_TOKEN']
+CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
 FILE_PATH = 'last_post_id.txt'
 
 # 2. 감시할 게시판 이름과 주소 목록 (총 9개 게시판)
